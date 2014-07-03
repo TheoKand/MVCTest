@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OBLIVIUS_MAINModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="OBLIVIUS_MAINModelStoreContainer">
+          <EntitySet Name="VE_Parties" EntityType="OBLIVIUS_MAINModel.Store.VE_Parties" store:Type="Tables" store:Schema="dbo" store:Name="VE_Parties">
+            <DefiningQuery>SELECT 
+      [VE_Parties].[ID] AS [ID], 
+      [VE_Parties].[Name] AS [Name], 
+      [VE_Parties].[Elections2012] AS [Elections2012], 
+      [VE_Parties].[InEuro2014] AS [InEuro2014], 
+      [VE_Parties].[iFactor] AS [iFactor]
+      FROM [dbo].[VE_Parties] AS [VE_Parties]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VE_Users" EntityType="OBLIVIUS_MAINModel.Store.VE_Users" store:Type="Tables" store:Schema="dbo" store:Name="VE_Users">
+            <DefiningQuery>SELECT 
+      [VE_Users].[MAC] AS [MAC], 
+      [VE_Users].[AgeID] AS [AgeID], 
+      [VE_Users].[PerifID] AS [PerifID], 
+      [VE_Users].[GenderID] AS [GenderID], 
+      [VE_Users].[When] AS [When], 
+      [VE_Users].[PartyID] AS [PartyID], 
+      [VE_Users].[IP] AS [IP], 
+      [VE_Users].[bad_mac] AS [bad_mac], 
+      [VE_Users].[PrevElectionsPartyID] AS [PrevElectionsPartyID], 
+      [VE_Users].[IPExists] AS [IPExists], 
+      [VE_Users].[ID] AS [ID], 
+      [VE_Users].[DateCreated] AS [DateCreated], 
+      [VE_Users].[PartyIdHidden] AS [PartyIdHidden]
+      FROM [dbo].[VE_Users] AS [VE_Users]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'oblivius_2.dbo.VE_Parties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VE_Parties">
+          <Key>
+            <PropertyRef Name="ID" />
+            
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Elections2012" Type="decimal" Scale="2" />
+          <Property Name="InEuro2014" Type="bit" />
+          <Property Name="iFactor" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'oblivius_2.dbo.VE_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VE_Users">
+          <Key>
+            <PropertyRef Name="MAC" />
+            
+            
+            
+            
+          </Key>
+          <Property Name="MAC" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AgeID" Type="int" Nullable="false" />
+          <Property Name="PerifID" Type="int" Nullable="false" />
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="When" Type="smalldatetime" />
+          <Property Name="PartyID" Type="int" />
+          <Property Name="IP" Type="varchar" MaxLength="50" />
+          <Property Name="bad_mac" Type="tinyint" />
+          <Property Name="PrevElectionsPartyID" Type="int" />
+          <Property Name="IPExists" Type="bit" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="smalldatetime" />
+          <Property Name="PartyIdHidden" Type="int" />
+        </EntityType>
+        <Function Name="spVE_GetResults2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WeightByAgeGroup" Type="bit" Mode="In" />
+          <Parameter Name="WeightByPerif" Type="bit" Mode="In" />
+          <Parameter Name="Filter18" Type="bit" Mode="In" />
+          <Parameter Name="FilterIP" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spVE_PartyByAge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spVE_PartyByPerif" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partyId" Type="int" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OBLIVIUS_MAINModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="VE_Parties" EntityType="OBLIVIUS_MAINModel.VE_Parties" />
+          <EntitySet Name="VE_Users" EntityType="OBLIVIUS_MAINModel.VE_Users" />
+          <AssociationSet Name="FK_User_Party" Association="OBLIVIUS_MAINModel.FK_User_Party">
+            <End Role="VE_Parties" EntitySet="VE_Parties" />
+            <End Role="VE_Users" EntitySet="VE_Users" />
+          </AssociationSet>
+          <FunctionImport Name="GetResults" ReturnType="Collection(OBLIVIUS_MAINModel.GetResults_Result)">
+            <Parameter Name="WeightByAgeGroup" Mode="In" Type="Boolean" />
+            <Parameter Name="WeightByPerif" Mode="In" Type="Boolean" />
+            <Parameter Name="Filter18" Mode="In" Type="Boolean" />
+            <Parameter Name="FilterIP" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PartyByAge" ReturnType="Collection(OBLIVIUS_MAINModel.PartyByAge_Result)">
+            <Parameter Name="partyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PartyByPerif" ReturnType="Collection(OBLIVIUS_MAINModel.PartyByPerif_Result)">
+            <Parameter Name="partyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="VE_Parties">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Elections2012" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InEuro2014" Type="Boolean" />
+          <Property Name="iFactor" Type="Double" />
+          <NavigationProperty Name="VE_Users" Relationship="OBLIVIUS_MAINModel.FK_User_Party" FromRole="VE_Parties" ToRole="VE_Users" />
+        </EntityType>
+        <EntityType Name="VE_Users">
+          <Key>
+            <PropertyRef Name="MAC" />
+          </Key>
+          <Property Name="MAC" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AgeID" Type="Int32" Nullable="false" />
+          <Property Name="PerifID" Type="Int32" Nullable="false" />
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <Property Name="When" Type="DateTime" />
+          <Property Name="PartyID" Type="Int32" />
+          <Property Name="IP" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="bad_mac" Type="Byte" />
+          <Property Name="PrevElectionsPartyID" Type="Int32" />
+          <Property Name="IPExists" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" />
+          <Property Name="PartyIdHidden" Type="Int32" />
+          <NavigationProperty Name="VE_Parties" Relationship="OBLIVIUS_MAINModel.FK_User_Party" FromRole="VE_Users" ToRole="VE_Parties" />
+        </EntityType>
+        <Association Name="FK_User_Party">
+          <End Role="VE_Parties" Type="OBLIVIUS_MAINModel.VE_Parties" Multiplicity="0..1" />
+          <End Role="VE_Users" Type="OBLIVIUS_MAINModel.VE_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VE_Parties">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VE_Users">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetResults_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TotalVotes" Nullable="true" />
+          <Property Type="Double" Name="TotalWeightedVotes" Nullable="true" />
+          <Property Type="Decimal" Name="Elections2012" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="C2012_App" Nullable="true" Precision="26" Scale="12" />
+          <Property Type="Double" Name="iFactor" Nullable="true" />
+          <Property Type="Decimal" Name="Perc" Nullable="true" Precision="26" Scale="12" />
+          <Property Type="Double" Name="WeightedPerc" Nullable="true" />
+          <Property Type="Double" Name="C2014_WeightedEstimate" Nullable="false" />
+          <Property Type="Double" Name="C2014_Estimate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PartyByAge_Result">
+          <Property Type="String" Name="Ηλικία" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Ψήφοι" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PartyByPerif_Result">
+          <Property Type="String" Name="Εκλ_Περιφέρεια" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Ψήφοι" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OBLIVIUS_MAINModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="VE_Parties"><EntityTypeMapping TypeName="OBLIVIUS_MAINModel.VE_Parties"><MappingFragment StoreEntitySet="VE_Parties">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Elections2012" ColumnName="Elections2012" />
+            <ScalarProperty Name="InEuro2014" ColumnName="InEuro2014" />
+            <ScalarProperty Name="iFactor" ColumnName="iFactor" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VE_Users"><EntityTypeMapping TypeName="OBLIVIUS_MAINModel.VE_Users"><MappingFragment StoreEntitySet="VE_Users">
+            <ScalarProperty Name="MAC" ColumnName="MAC" />
+            <ScalarProperty Name="AgeID" ColumnName="AgeID" />
+            <ScalarProperty Name="PerifID" ColumnName="PerifID" />
+            <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+            <ScalarProperty Name="When" ColumnName="When" />
+            <ScalarProperty Name="PartyID" ColumnName="PartyID" />
+            <ScalarProperty Name="IP" ColumnName="IP" />
+            <ScalarProperty Name="bad_mac" ColumnName="bad_mac" />
+            <ScalarProperty Name="PrevElectionsPartyID" ColumnName="PrevElectionsPartyID" />
+            <ScalarProperty Name="IPExists" ColumnName="IPExists" />
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+            <ScalarProperty Name="PartyIdHidden" ColumnName="PartyIdHidden" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetResults" FunctionName="OBLIVIUS_MAINModel.Store.spVE_GetResults2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OBLIVIUS_MAINModel.GetResults_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TotalVotes" ColumnName="TotalVotes" />
+                <ScalarProperty Name="TotalWeightedVotes" ColumnName="TotalWeightedVotes" />
+                <ScalarProperty Name="Elections2012" ColumnName="Elections2012" />
+                <ScalarProperty Name="C2012_App" ColumnName="2012-App" />
+                <ScalarProperty Name="iFactor" ColumnName="iFactor" />
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="WeightedPerc" ColumnName="WeightedPerc" />
+                <ScalarProperty Name="C2014_WeightedEstimate" ColumnName="2014-WeightedEstimate" />
+                <ScalarProperty Name="C2014_Estimate" ColumnName="2014-Estimate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PartyByAge" FunctionName="OBLIVIUS_MAINModel.Store.spVE_PartyByAge">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OBLIVIUS_MAINModel.PartyByAge_Result">
+                <ScalarProperty Name="Ηλικία" ColumnName="Ηλικία" />
+                <ScalarProperty Name="Ψήφοι" ColumnName="Ψήφοι" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PartyByPerif" FunctionName="OBLIVIUS_MAINModel.Store.spVE_PartyByPerif">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OBLIVIUS_MAINModel.PartyByPerif_Result">
+                <ScalarProperty Name="Εκλ_Περιφέρεια" ColumnName="Εκλ.Περιφέρεια" />
+                <ScalarProperty Name="Ψήφοι" ColumnName="Ψήφοι" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model" ZoomLevel="80">
+        <EntityTypeShape EntityType="OBLIVIUS_MAINModel.VE_Parties" Width="1.5" PointX="0.5" PointY="0.5" Height="1.9210009765625002" IsExpanded="true" />
+        <EntityTypeShape EntityType="OBLIVIUS_MAINModel.VE_Users" Width="1.5" PointX="0.5" PointY="3" Height="3.2357796223958322" IsExpanded="true" />
+        <AssociationConnector Association="OBLIVIUS_MAINModel.FK_User_Party" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.25" PointY="2.4210009765625005" />
+          <ConnectorPoint PointX="1.25" PointY="3" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

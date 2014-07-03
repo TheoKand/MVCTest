@@ -1,0 +1,97 @@
+﻿@model MVC_TestBed.Models.PartyModel
+@{
+    ViewBag.Title = Model.Party.Name;
+
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+            </hgroup>
+            <p>
+                Οι καλύτερες/χειρότερες περιφέρειες και ηλικίες για το κόμμα @Model.Party.Name.
+            </p>
+        </div>
+    </section>
+}
+@using (Html.BeginForm())
+{ 
+    @Html.AntiForgeryToken()
+
+    <div class="content-wrapper">
+        <div class="float-left">
+            <h2>
+                Καλύτερες περιφέρειες</h2>
+            <table>
+                @for (int i = 0; i < Model.TopRegions.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(Model.TopRegions[i].Εκλ_Περιφέρεια, "ShowRegion", new { name = Model.TopRegions[i].Εκλ_Περιφέρεια })
+                        </td>
+                        <td>
+                            @Model.TopRegions[i].Ψήφοι %
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="float-right">
+            <h2>
+                Χειρότερες περιφέρειες</h2>
+            <table>
+                @for (int i = 0; i < Model.BottomRegions.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(Model.BottomRegions[i].Εκλ_Περιφέρεια, "ShowRegion", new { name = Model.BottomRegions[i].Εκλ_Περιφέρεια })
+                        </td>
+                        <td>
+                            @Model.BottomRegions[i].Ψήφοι %
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    
+    
+    
+    <div class="content-wrapper" style="clear: both">
+        <div class="float-left">
+            <h2>
+                Καλύτερες ηλικίες</h2>
+            <table>
+                @for (int i = 0; i < Model.TopAges.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(Model.TopAges[i].Ηλικία, "ShowAge", new { name = Model.TopAges[i].Ηλικία })
+                        </td>
+                        <td>
+                            @Model.TopAges[i].Ψήφοι %
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="float-right">
+            <h2>
+                Χειρότερες ηλικίες</h2>
+            <table>
+                @for (int i = 0; i < Model.BottomAges.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(Model.BottomAges[i].Ηλικία, "ShowAge", new { name = Model.BottomAges[i].Ηλικία })
+                        </td>
+                        <td>
+                            @Model.BottomAges[i].Ψήφοι %
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>     
+}

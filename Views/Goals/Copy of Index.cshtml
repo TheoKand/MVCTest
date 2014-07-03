@@ -1,0 +1,117 @@
+﻿@model MVC_TestBed.Models.GoalContext
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Goals</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="../../scripts/jquery.ui.touch-punch.min.js"></script>
+    <style type="text/css">
+        body, html
+        {
+            height: 100%;
+            text-align: center;
+            margin: 0; 
+            padding: 0;
+            
+        }
+        
+        div, body, table, p
+        {
+            font-family: Verdana;
+            font-size:small;
+        }
+        
+        .Team
+        {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            padding: 5%;
+            margin: 5%;
+            width: 100px;
+            background-color: Silver;
+            border: 1px solid black;
+        }
+        #addTeamLink,#removeTeamLink,#refreshTeamLink
+        {
+        	visibility:hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="Teams" style="display: inline-block; width: 97%; min-height: 8%; padding: 1.5%;
+        margin-left: 1%; margin-right: 1%; margin-top: 0.5%; margin-bottom: 0.5%; background-color: Gray">
+        @{
+            Html.RenderPartial("UnusedTeams", Model);
+        }
+
+
+
+    </div>
+    <div id="Results" style="display: inline-block; width: 97%; min-height: 75%; padding: 1.5%;
+        margin-left: 1%; margin-right: 1%; margin-top: 0.5%; margin-bottom: 0.5%; background-color: green ; ">
+
+
+
+    </div>
+    @Ajax.ActionLink("AddTeam", "Index", new { addTeam = "", removeTeam = "" }, new AjaxOptions { UpdateTargetId = "Results", OnBegin = "beginAddTeam", OnSuccess = "successAddTeam", OnFailure = "failureAddTeam" }, new { @id = "addTeamLink" })
+    @Ajax.ActionLink("RemoveTeam", "Index", new { addTeam = "" , removeTeam="" }, new AjaxOptions { UpdateTargetId = "Results", OnBegin = "beginRemoveTeam", OnSuccess = "successRemoveTeam", OnFailure = "failureRemoveTeam" }, new { @id = "removeTeamLink" })
+
+    @Ajax.ActionLink("ShowUnusedTeams", "Index", new { addTeam = "", removeTeam = "" }, new AjaxOptions { UpdateTargetId = "Teams", OnSuccess = "successRefreshTeams" }, new { @id = "refreshTeamLink" })
+
+    <script type="text/javascript">
+        $(function () {
+
+            alert("Drag and drop one or more teams into the green area, to see how their goals are spread throughout the 90 minutes of the game.\n\nDrag and drop a used team back in the gray area to remove it from the data set.");
+
+            $("div.Team").draggable();
+
+            $("#Results").droppable({
+                drop: function (event, ui) {
+                    var newTeam = ui.draggable.text();
+                    ui.draggable.remove();
+                    $("#addTeamLink").attr("href", "/Goals?addTeam=" + newTeam).click();
+
+                }
+            });
+
+        });
+
+        function beginAddTeam(args) {
+            //$('#Results').fadeOut('normal');
+        }
+
+        function successAddTeam() {
+            //$('#Results').fadeIn('normal');
+        }
+
+        function failureAddTeam() {
+            //alert("Could not retrieve details.");
+        }
+
+        function beginRemoveTeam(args) {
+            //$('#Results').fadeOut('normal');
+        }
+
+        function successRemoveTeam() {
+            $("#refreshTeamLink").click();
+        }
+
+        function failureRemoveTeam() {
+            //alert("Could not retrieve details.");
+        }
+
+        function successRefreshTeams() {
+            //$("div.Team").draggable();
+        }
+
+
+
+    </script>
+</body>
+</html>
