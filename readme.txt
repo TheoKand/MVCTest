@@ -1,11 +1,11 @@
-﻿ASP.NET MVC Application
------------------------
+﻿ASP.NET MVC Test Application
+-----------------------------
 
 Technologies used:
 - MVC4
 - Razor view engine
 - JQuery UI
-
+- Entity Framework
 
 ONLINE DEMOS
 ------------
