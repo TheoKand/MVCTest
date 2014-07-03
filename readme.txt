@@ -10,7 +10,7 @@ Technologies used:
 ONLINE DEMOS
 ------------
 
-http://mvc.oblapps.com/Goal
+http://mvc.oblapps.com/Goals
 Demostrates a SPA (Single Page Application) with drag-drop functionality and AJAX partial views.
 
 http://mvc.oblapps.com/Home
