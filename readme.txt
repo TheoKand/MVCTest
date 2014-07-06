@@ -4,7 +4,7 @@
 Technologies used:
 - MVC4
 - Razor view engine
-- JQuery UI
+- JQuery
 - Entity Framework
 
 ONLINE DEMOS
