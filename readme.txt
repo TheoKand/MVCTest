@@ -10,8 +10,11 @@ Technologies used:
 ONLINE DEMOS
 ------------
 
+http://mvc.oblapps.com/Chat
+Single Page Application demonstrating a fully functional chat room with MVC / JQuery timers.
+
 http://mvc.oblapps.com/Goals
-Demostrates a SPA (Single Page Application) with drag-drop functionality and AJAX partial views.
+Demostrates a SPA (Single Page Application) with JQuery UI drag-drop functionality and AJAX partial views.
 
 http://mvc.oblapps.com/Home
-Demostrates Entity Framework , AJAX partial loading , JQuery animations
+Simple implementation of Entity Framework , AJAX partial loading , JQuery animations.
