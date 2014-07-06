@@ -13,6 +13,11 @@ namespace MVC_TestBed
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(
+                name: "Chat",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Chat", action = "Index", id = UrlParameter.Optional }
+            );
 
 
             routes.MapRoute(
@@ -20,6 +25,7 @@ namespace MVC_TestBed
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Goals", action = "Index", id = UrlParameter.Optional }
             );
+
 
             routes.MapRoute(
                 name: "Default",

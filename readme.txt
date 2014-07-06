@@ -14,4 +14,4 @@ http://mvc.oblapps.com/Goals
 Demostrates a SPA (Single Page Application) with drag-drop functionality and AJAX partial views.
 
 http://mvc.oblapps.com/Home
-Demostrates database loading with Entity Framework
+Demostrates Entity Framework , AJAX partial loading , JQuery animations

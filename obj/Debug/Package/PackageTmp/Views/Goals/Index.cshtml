@@ -1,0 +1,153 @@
+﻿@model MVC_TestBed.Models.GoalContext
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Goals</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="../../scripts/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        body, html
+        {
+            height: 100%;
+            text-align: center;
+            margin: 0; 
+            padding: 0;
+            
+        }
+        
+        div, body, table, p
+        {
+            font-family: Verdana;
+            font-size:small;
+        }
+        
+        #container 
+        {
+           height:97%;
+           position: absolute;
+           top: 1.5%;
+           left: 0;
+           width: 100%;
+           min-width:320px;
+    	
+        }        
+        
+        #header 
+        {
+            
+            margin:0 auto;
+
+        	background-color: Gray;
+            width:98%;
+            height:15%;
+            min-height:50px;
+        }
+        
+        #content 
+        {
+            margin:0 auto;
+            
+        	background-color:green;
+            width:98%;
+            height:85%;
+            min-height:50px;
+        }
+        
+        .box 
+        {
+        	float:left;
+        	margin:2%;
+        	margin-right:0;
+        	width:10%;
+        	min-width:90px;
+        	height:70%;
+       	
+        	background-color:Silver;
+        }        
+        
+        #addTeamLink,#removeTeamLink,#refreshTeamLink
+        {
+        	visibility:hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+
+    <div id="header">
+        @{
+            Html.RenderPartial("UnusedTeams", Model);
+        }
+
+
+
+    </div>
+    <div id="content" >
+
+    </div>
+
+    </div>
+
+    @Ajax.ActionLink("AddTeam", "Index", new { addTeam = "", removeTeam = "" }, new AjaxOptions { UpdateTargetId = "content", OnBegin = "beginAddTeam", OnSuccess = "successAddTeam", OnFailure = "failureAddTeam" }, new { @id = "addTeamLink" })
+    @Ajax.ActionLink("RemoveTeam", "Index", new { addTeam = "", removeTeam = "" }, new AjaxOptions { UpdateTargetId = "content", OnBegin = "beginRemoveTeam", OnSuccess = "successRemoveTeam", OnFailure = "failureRemoveTeam" }, new { @id = "removeTeamLink" })
+
+    @Ajax.ActionLink("ShowUnusedTeams", "Index", new { addTeam = "", removeTeam = "" }, new AjaxOptions { UpdateTargetId = "header", OnSuccess = "successRefreshTeams" }, new { @id = "refreshTeamLink" })
+
+    <script type="text/javascript">
+        $(function () {
+
+            alert("Drag and drop one or more teams into the green area, to see how their goals are spread throughout the 90 minutes of the game.\n\nDrag and drop a used team back in the gray area to remove it from the data set.");
+
+            $("div.box").draggable();
+
+            $("#content").droppable({
+                drop: function (event, ui) {
+                    var newTeam = ui.draggable.text();
+                    ui.draggable.remove();
+                    $("#addTeamLink").attr("href", "/Goals?addTeam=" + newTeam).click();
+
+                }
+            });
+
+        });
+
+        function beginAddTeam(args) {
+            //$('#Results').fadeOut('normal');
+        }
+
+        function successAddTeam() {
+            //$('#Results').fadeIn('normal');
+        }
+
+        function failureAddTeam() {
+            //alert("Could not retrieve details.");
+        }
+
+        function beginRemoveTeam(args) {
+            //$('#Results').fadeOut('normal');
+        }
+
+        function successRemoveTeam() {
+            $("#refreshTeamLink").click();
+        }
+
+        function failureRemoveTeam() {
+            //alert("Could not retrieve details.");
+        }
+
+        function successRefreshTeams() {
+            //$("div.Team").draggable();
+        }
+
+
+
+    </script>
+</body>
+</html>
