@@ -4,14 +4,16 @@
 Technologies used:
 - MVC4
 - Razor view engine
-- JQuery UI
+- JQuery
 - Entity Framework
 
 ONLINE DEMOS
 ------------
 
 http://mvc.oblapps.com/Chat
-Single Page Application demonstrating a fully functional chat room with MVC / JQuery timers.
+Single Page Application demonstrating a fully functional chat room with MVC / JQuery timers. 
+
+The server state (users,chat history) is persisted with a static Model instance. The partial views query the server state every 5 seconds. If a registered user does not query for 15 seconds he is considered "logged off" by the server. This example was supposed to be developed with WebSockets but unfortunately my application server MochaHost does not support it.
 
 http://mvc.oblapps.com/Goals
 Demostrates a SPA (Single Page Application) with JQuery UI drag-drop functionality and AJAX partial views.
