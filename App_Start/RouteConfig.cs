@@ -25,6 +25,13 @@ namespace MVC_TestBed
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "jQueryAjax",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "jQueryAjax", action = "Index", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

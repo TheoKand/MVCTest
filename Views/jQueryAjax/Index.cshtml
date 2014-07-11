@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#target").click(function () {
+                GetPersonData("Theo");
+            });
+        });
+
+        function GetPersonData(theName) {
+
+            $.ajax({
+                url: "/jQueryAjax/GetPerson",
+                type: 'Get',
+                data: { name: theName },
+                success: function (data) {
+                    $("#PersonData").empty().append(data);
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+
+        }
+
+        function getitjson() {
+            //arguments must be passed "wrapped" in an object
+            //To pass an argument named "name" with the value "Theo" : 
+            //var arg = { name: "Theo" }
+            $.getJSON("/jQueryAjax/GetPersonJson", { name: "Theo" }, updateFields);
+            
+        }
+
+        updateFields = function (data) {
+            $("#PersonDatajson").empty().append("The person '" + data.Name + "' has age of " + data.Age);
+        };
+    
+    </script>
+</head>
+<body>
+    <h3>
+        jQuery to get HTML data from mvc partial view</h3>
+    <div>
+        Click <span id="target">here</span> to get a partial view html with the method jQuery.Ajax
+        method.
+        <div id="PersonData">
+        </div>
+    </div>
+    <h3>
+        jQuery to get JSON data from mvc partial view</h3>
+    Click <span onclick="getitjson()">here</span> to get a json object
+    with jQuery.getJSON method.
+    <div id="PersonDatajson">
+    </div>
+</body>
+</html>

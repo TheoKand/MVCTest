@@ -172,6 +172,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\jQueryAjaxController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -303,6 +304,8 @@
     <Content Include="Views\Goals\Index.cshtml" />
     <Content Include="Views\Goals\UsedTeams.cshtml" />
     <Content Include="Views\Goals\UnusedTeams.cshtml" />
+    <Content Include="Views\jQueryAjax\Index.cshtml" />
+    <Content Include="Views\jQueryAjax\GetPerson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
