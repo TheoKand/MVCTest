@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Test the WCF Web Service</title>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-ui-1.8.20.js"></script>
+    <script type="text/javascript">
+
+        function CallService() {
+
+            //the web service method expects a JSON object of type "FutureDate"
+            var futureDate = new Object();
+            futureDate.Year = $("#txtYear").val();
+            futureDate.Month = $("#txtMonth").val();
+            futureDate.Day = $("#txtDay").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Service/FutureDateService.svc/GetDayName",
+                data: '{"date":' + JSON.stringify(futureDate) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                processdata: true,
+                success: function (msg) {
+                    //according to the JSON format, when a simple value is returned, it is wrapped in an object. The property name is "d"
+                    alert("The weekday is " + msg.d);
+                },
+                error: function (result) {
+
+                    //if the web method returns detailed error information, show the exception message
+                    if (result.responseText) {
+                        var errorMessage = jQuery.parseJSON(result.responseText).Message;
+                        alert(errorMessage);
+                    } else {
+                        //otherwise show the HTTP response
+                        var errorMessage = result.status + " " + result.statusText;
+                        alert(errorMessage);                        
+                    }
+                }
+            });
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+
+    Day : <input type="text" id="txtDay" value="24" /><br />
+    Month : <input type="text" id="txtMonth" value="10"/><br />
+    Year : <input type="text" id="txtYear" value="1979"/><br />
+
+    <input type="button" onclick="CallService()" value="Get the week day" />
+
+</body>
+</html>

@@ -6,6 +6,9 @@ Technologies used:
 - Razor view engine
 - JQuery
 - Entity Framework
+- WCF
+- AJAX 
+- JSON
 
 ONLINE DEMOS
 ------------
@@ -14,3 +17,6 @@ Demostrates a SPA (Single Page Application) with JQuery UI drag-drop functionali
 
 http://mvctest.theokand.com/Home
 Simple implementation of Entity Framework , AJAX partial loading , JQuery animations.
+
+http://mvctest.theokand.com/Service/TestWebService.htm
+WCF Web service that is AJAX enabled. The service is called by client-side JQuery code and the data exchanged is in JSON format
