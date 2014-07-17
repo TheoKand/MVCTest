@@ -18,5 +18,8 @@ Demostrates a SPA (Single Page Application) with JQuery UI drag-drop functionali
 http://mvctest.theokand.com/Home
 Simple implementation of Entity Framework , AJAX partial loading , JQuery animations.
 
+http://mvctest.theokand.com/jqueryajax
+Example of using JQuery to get plain HTML or JSON objects from MVC partial views.
+
 http://mvctest.theokand.com/Service/TestWebService.htm
-WCF Web service that is AJAX enabled. The service is called by client-side JQuery code and the data exchanged is in JSON format
+AJAX-enabled WCF Web service. The service is consumed by JQuery code and the data exchanged is in JSON format.
