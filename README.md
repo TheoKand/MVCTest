@@ -10,8 +10,9 @@ Technologies used:
 - AJAX 
 - JSON
 
-ONLINE DEMOS
-------------
+Demos
+-----
+
 http://mvctest.theokand.com/Goals
 Demostrates a SPA (Single Page Application) with JQuery UI drag-drop functionality and AJAX partial views.
 
